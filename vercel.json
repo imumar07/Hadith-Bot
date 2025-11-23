@@ -1,8 +1,0 @@
-{
-  "scheduled": [
-    {
-      "path": "/api/tweet",
-      "schedule": "30 18 * * *"
-    }
-  ]
-}
