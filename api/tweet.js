@@ -110,6 +110,12 @@ const tweets = [
   "Be a servant to people and a seeker of Allah’s pleasure。"
 ];
 
+// Random Islamic/Motivational Stickers
+const stickers = [
+  "✨", "🤲", "🌙", "💫", "🌟", "🕌", "📿", "❤️", "🌸", "🕊️",
+  "⭐", "🌿", "☁️", "🔥", "💛", "🤍", "🌼", "🌙✨", "🤲✨", "💖"
+];
+
 export default async function handler(req, res) {
   try {
     const client = new TwitterApi({
@@ -119,15 +125,20 @@ export default async function handler(req, res) {
       accessSecret: process.env.TWITTER_ACCESS_SECRET,
     });
 
-    // Choose a random tweet from the list
-    const randomTweet =
-      tweets[Math.floor(Math.random() * tweets.length)];
+    // Pick a random tweet
+    const randomTweet = tweets[Math.floor(Math.random() * tweets.length)];
 
-    const tweet = await client.v2.tweet(randomTweet);
+    // Pick a random sticker
+    const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
+
+    // Build final tweet
+    const finalMessage = `${randomTweet}\n\nMay Allah protect us and guide us. Remember me in your duā 🤲 ${randomSticker}`;
+
+    const tweet = await client.v2.tweet(finalMessage);
 
     return res.status(200).json({
       success: true,
-      message: randomTweet,
+      message: finalMessage,
       tweet,
     });
   } catch (err) {
